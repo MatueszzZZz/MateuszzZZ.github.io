@@ -1,11 +1,302 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <title>Moja pierwsza strona</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Twoja fajna strona</title>
+  <meta name="description" content="Nowoczesna, szybka i responsywna strona — gotowa do użycia." />
+  <meta property="og:title" content="Twoja fajna strona">
+  <meta property="og:description" content="Nowoczesna, szybka i responsywna strona — gotowa do użycia.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --bg-soft:#0f1520;
+      --text:#e8f0ff;
+      --muted:#a8b3c5;
+      --card:#111927cc;
+      --card-border:#22324a;
+      --accent:#2f7bff; /* niebieski akcent */
+      --accent-2:#6ba6ff;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:20px;
+    }
+    :root.light{
+      --bg:#f7f9fc;
+      --bg-soft:#ffffff;
+      --text:#0b1220;
+      --muted:#4b5563;
+      --card:#ffffffcc;
+      --card-border:#e5e7eb;
+      --shadow:0 12px 32px rgba(15,23,42,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+      color:var(--text); background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(47,123,255,.25), transparent 60%),
+        radial-gradient(800px 400px at 100% 10%, rgba(107,166,255,.25), transparent 60%),
+        var(--bg);
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1100px; margin:0 auto; padding:24px}
+    header{
+      position:sticky; top:0; backdrop-filter:saturate(160%) blur(10px);
+      background:linear-gradient(to bottom, rgba(15,23,42,.6), rgba(15,23,42,0));
+      border-bottom:1px solid var(--card-border);
+      z-index:50;
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px}
+    .brand .logo{
+      width:34px; height:34px; display:grid; place-items:center;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:white; border-radius:12px; font-weight:900; box-shadow:var(--shadow);
+    }
+    .menu{display:flex; gap:18px; flex-wrap:wrap}
+    .menu a{color:var(--text); opacity:.9}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; padding:10px 16px; border-radius:14px;
+      border:1px solid var(--card-border); background:var(--bg-soft); color:var(--text);
+    }
+    .btn-primary{
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:white; border:0; box-shadow:var(--shadow);
+    }
+    .theme-toggle{cursor:pointer}
+
+    /* HERO */
+    .hero{padding:80px 24px 40px}
+    .hero-grid{
+      display:grid; grid-template-columns:1.2fr .8fr; gap:30px; align-items:center;
+    }
+    .hero h1{font-size:clamp(28px, 5vw, 48px); line-height:1.15; margin:0 0 14px}
+    .hero p{color:var(--muted); margin:0 0 26px}
+    .hero .card{
+      background:var(--card); border:1px solid var(--card-border); border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:22px;
+    }
+    .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px}
+    .stat{padding:16px; border:1px solid var(--card-border); border-radius:16px; background:var(--bg-soft)}
+    .stat .big{font-size:22px; font-weight:800}
+    .pill{display:inline-flex; gap:8px; align-items:center; font-size:13px; padding:6px 10px; border-radius:999px; border:1px solid var(--card-border); background:rgba(47,123,255,.12)}
+    .glow{position:relative}
+    .glow::after{
+      content:""; position:absolute; inset:-2px; border-radius:calc(var(--radius) + 2px);
+      background:conic-gradient(from 180deg, transparent, rgba(47,123,255,.4), transparent);
+      filter:blur(14px); z-index:-1; opacity:.5;
+    }
+
+    /* SECTIONS */
+    section{padding:60px 24px}
+    h2{font-size:clamp(22px, 4vw, 32px); margin:0 0 18px}
+    .muted{color:var(--muted)}
+
+    .features{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
+    }
+    .feature{
+      padding:18px; border:1px solid var(--card-border); border-radius:18px; background:var(--card);
+    }
+    .feature h3{margin:0 0 8px; font-size:18px}
+    .feature p{margin:0}
+
+    .gallery{
+      display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;
+    }
+    .shot{
+      aspect-ratio: 4/3; border-radius:16px; overflow:hidden; border:1px solid var(--card-border);
+      background:
+        linear-gradient(135deg, rgba(47,123,255,.25), rgba(107,166,255,.15)),
+        linear-gradient(180deg, #222, #111);
+      display:grid; place-items:center; color:#fff; font-weight:700; letter-spacing:.6px;
+    }
+
+    .contact .card{padding:22px; border-radius:18px; border:1px solid var(--card-border); background:var(--card)}
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+
+    input, textarea{
+      width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--card-border);
+      background:var(--bg-soft); color:var(--text)
+    }
+    label{font-size:14px; color:var(--muted)}
+    form .row{display:grid; gap:8px}
+
+    footer{padding:30px 24px; color:var(--muted); border-top:1px solid var(--card-border); background:rgba(0,0,0,.1)}
+    .foot{display:flex; gap:14px; align-items:center; justify-content:space-between; flex-wrap:wrap}
+
+    /* RESPONSIVE */
+    @media (max-width: 900px){
+      .hero-grid{grid-template-columns:1fr}
+      .features{grid-template-columns:1fr 1fr}
+      .gallery{grid-template-columns:1fr 1fr}
+      .grid-2{grid-template-columns:1fr}
+    }
+    @media (max-width: 560px){
+      .features, .gallery{grid-template-columns:1fr}
+    }
+
+    /* drobne animacje */
+    .fade-in{opacity:0; transform:translateY(8px); animation:fade .7s ease .1s forwards}
+    @keyframes fade{to{opacity:1; transform:none}}
+  </style>
 </head>
 <body>
-    <h1>Witaj na mojej stronie!</h1>
-    <p>Ta strona działa dzięki GitHub Pages 🎉</p>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">M</div>
+        <span>mamautyzm</span>
+      </div>
+      <nav class="menu">
+        <a href="#o-mnie">O mnie</a>
+        <a href="#funkcje">Funkcje</a>
+        <a href="#galeria">Galeria</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <button class="btn theme-toggle" id="themeBtn" aria-label="Przełącz motyw">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="pill fade-in">⚡ Szybka. Prosta. Gotowa do publikacji.</span>
+          <h1 class="fade-in" style="animation-delay:.1s">Zbuduj obecność w sieci w kilka minut</h1>
+          <p class="fade-in" style="animation-delay:.2s">Ta strona to czysty HTML+CSS z lekkimi animacjami, responsywnym układem i trybem jasnym/ciemnym. Idealna na portfolio, projekt lub landing.</p>
+          <div class="fade-in" style="animation-delay:.3s; display:flex; gap:12px; flex-wrap:wrap">
+            <a class="btn btn-primary" href="#kontakt">Skontaktuj się</a>
+            <a class="btn" href="#o-mnie">Dowiedz się więcej</a>
+          </div>
+          <div class="stats fade-in" style="animation-delay:.4s">
+            <div class="stat"><div class="big">100%</div><div>Responsywna</div></div>
+            <div class="stat"><div class="big">0&nbsp;MB</div><div>Bez frameworków</div></div>
+            <div class="stat"><div class="big">~1s</div><div>Szybkie ładowanie</div></div>
+          </div>
+        </div>
+        <div class="card glow fade-in" style="animation-delay:.25s">
+          <h3 style="margin:0 0 10px">Szybki start</h3>
+          <ol style="margin:0 0 8px; padding-left:18px">
+            <li>Wgraj ten plik jako <strong>index.html</strong> do repo.</li>
+            <li>Settings → Pages → Deploy from a branch: <strong>main / (root)</strong>.</li>
+            <li>Wejdź na <code>https://twoj-uzytkownik.github.io</code>.</li>
+          </ol>
+          <p class="muted" style="margin:8px 0 0">Edytuj teksty, kolory i sekcje pod siebie.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- O MNIE -->
+    <section id="o-mnie">
+      <div class="container">
+        <h2>Kim jestem?</h2>
+        <p class="muted">Tu wpisz 2–3 zdania o sobie / projekcie. Skup się na korzyściach i tym, czym się wyróżniasz. Ten blok jest minimalistyczny — po prostu tekst, który dobrze się czyta.</p>
+      </div>
+    </section>
+
+    <!-- FUNKCJE -->
+    <section id="funkcje">
+      <div class="container">
+        <h2>Co tu znajdziesz</h2>
+        <div class="features">
+          <div class="feature">
+            <h3>🔒 Bez zbędnych skryptów</h3>
+            <p>Zero śmieci, czysty kod – działa szybko i bezpiecznie.</p>
+          </div>
+          <div class="feature">
+            <h3>📱 Pełna responsywność</h3>
+            <p>Wygląda świetnie na telefonie, tablecie i desktopie.</p>
+          </div>
+          <div class="feature">
+            <h3>🎨 Łatwe dostosowanie</h3>
+            <p>Kolory i akcenty zmieniasz w kilku zmiennych CSS.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section id="galeria">
+      <div class="container">
+        <h2>Galeria / Projekty</h2>
+        <p class="muted">Wrzuć tu zrzuty ekranu, grafiki, linki do portfolio itp.</p>
+        <div class="gallery">
+          <div class="shot">Zrzut #1</div>
+          <div class="shot">Zrzut #2</div>
+          <div class="shot">Zrzut #3</div>
+          <div class="shot">Zrzut #4</div>
+          <div class="shot">Zrzut #5</div>
+          <div class="shot">Zrzut #6</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAKT -->
+    <section id="kontakt" class="contact">
+      <div class="container grid-2">
+        <div class="card">
+          <h2>Napisz wiadomość</h2>
+          <form action="mailto:twoj.mail@example.com" method="post" enctype="text/plain">
+            <div class="row">
+              <label for="name">Imię</label>
+              <input id="name" name="Imię" required>
+            </div>
+            <div class="row">
+              <label for="email">E-mail</label>
+              <input id="email" name="Email" type="email" required>
+            </div>
+            <div class="row">
+              <label for="msg">Wiadomość</label>
+              <textarea id="msg" name="Wiadomość" rows="5" required></textarea>
+            </div>
+            <div style="display:flex; gap:10px; margin-top:10px">
+              <button class="btn btn-primary" type="submit">Wyślij</button>
+              <a class="btn" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+          </form>
+        </div>
+        <div class="card">
+          <h2>Tu mnie znajdziesz</h2>
+          <p class="muted">Dodaj swoje linki społecznościowe, adres e-mail i inne kanały kontaktu.</p>
+          <ul>
+            <li>📧 <a href="mailto:twoj.mail@example.com">twoj.mail@example.com</a></li>
+            <li>🐙 <a href="https://github.com/TwojUzytkownik" target="_blank" rel="noreferrer">github.com/TwojUzytkownik</a></li>
+            <li>🔗 <a href="#" target="_blank" rel="noreferrer">Dowolny link</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <span>© <span id="year"></span> Twoja strona</span>
+      <span>Made with 💙 — hostowane na GitHub Pages</span>
+    </div>
+  </footer>
+
+  <script>
+    // Rok w stopce
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Tryb jasny/ciemny — zapamiętywanie w localStorage
+    const root = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+    const saved = localStorage.getItem('theme');
+    if(saved === 'light'){ root.classList.add('light'); btn.textContent='☀️'; }
+    btn.addEventListener('click', () => {
+      root.classList.toggle('light');
+      const light = root.classList.contains('light');
+      btn.textContent = light ? '☀️' : '🌙';
+      localStorage.setItem('theme', light ? 'light' : 'dark');
+    });
+  </script>
 </body>
 </html>
